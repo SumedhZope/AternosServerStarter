@@ -1,0 +1,106 @@
+Client - C, Server - S.
+Note: "stream"/"type" means the type of received data:
+      a new console line, an updated RAM or TPS value...
+
+C>
+GET wss://aternos.org/hermes/
+Connection: Upgrade
+Cookie: ATERNOS_SESSION=***SESSION***; ATERNOS_SERVER=***SERVER_ID***
+Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits
+Sec-WebSocket-Key: 294tmb+eQCF0CfWz5lvZ8A==
+Sec-WebSocket-Version: 13
+Upgrade: websocket
+User-Agent: ...
+S>
+HTTP/1.1 101 Switching Protocols
+Connection: Upgrade
+sec-websocket-accept: TdeB4uvmMuNigQtzJuOjUzqoSkc=
+upgrade: websocket
+
+WEBSOCKET:
+
+   # Init
+S> {"type":"ready","data":"***SERVER_ID***"}
+   # Start
+C> {"stream":"console","type":"start"}
+S> {"type":"connected"}
+S> {"stream":"console","type":"started"}
+   # Log
+S> {"stream":"console","type":"line","data":"[23:27:07] [Server thread/INFO] [FML]: Injecting itemstacks\r"}
+C> {"stream":"console","type":"command","data":"list"}
+S> {"stream":"console","type":"line","data":"list\r"}
+S> {"stream":"console","type":"line","data":"[23:28:28] [Server thread/INFO] [minecraft/DedicatedServer]: There are §r0§r/§r8§r players online:§r\r"}
+S> {"stream":"console","type":"line","data":"[23:28:28] [Server thread/INFO] [minecraft/DedicatedServer]: \r"}
+   # ???
+C> {"type":"❤"}
+
+*** Page was refreshed
+
+C>
+GET wss://aternos.org/hermes/
+Connection: Upgrade
+Cookie: ATERNOS_SESSION=***SESSION***; ATERNOS_SERVER=***SERVER_ID***
+Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits
+Sec-WebSocket-Key: sT1PpNq/AhfY3HpIUplRIg==
+Sec-WebSocket-Version: 13
+Upgrade: websocket
+User-Agent: ...
+S>
+HTTP/1.1 101 Switching Protocols
+Connection: upgrade
+sec-websocket-accept: 9HWtmcvFcxO8HeHQU5nXO8+R19k=
+upgrade: websocket
+
+   # Init
+S> {"type":"ready","data":"cDRCfaQjQDaABPKL"}
+   # Start
+C> {"stream":"heap","type":"start"}
+S> {"type":"connected"}
+S> {"stream":"heap","type":"started"}
+   # RAM usage
+S> {"stream":"heap","type":"heap","data":{"usage":879372712}}
+   # Changing state (lastStatus object)
+S> {"type":"status","message":"{\"brand\":\"aternos\",\"status\":3,\"change\":1640978969,\"slots\":8,\"problems\":0,\"players\":0,\"playerlist\":[],\"message\":{\"text\":\"\",\"class\":\"blue\"},\"dynip\":null,\"bedrock\":false,\"host\":\"croaker.aternos.host\",\"port\":61370,\"headstarts\":null,\"ram\":0,\"lang\":\"stopping\",\"label\":\"\\u041e\\u0441\\u0442\\u0430\\u043d\\u043e\\u0432\\u043a\\u0430 ...\",\"class\":\"loading\",\"countdown\":null,\"queue\":null,\"id\":\"cDRCfaQjQDaABPKL\",\"name\":\"inc09\",\"software\":\"Forge\",\"softwareId\":\"p71sAEKNbhea4UEm\",\"type\":\"forge\",\"version\":\"1.12.2 (14.23.5.2860)\",\"deprecated\":false,\"ip\":\"inc09.aternos.me\",\"displayAddress\":\"inc09.aternos.me:61370\",\"motd\":\"IndustrialCraft 2\",\"icon\":\"fa-spinner-third fa-spin\",\"dns\":{\"type\":\"SRV\",\"domains\":[\"inc09.aternos.me\"],\"host\":\"croaker.aternos.host\",\"port\":61370,\"ip\":\"185.116.158.143\"}}"}
+   # Stop
+C> {"stream":"heap","type":"stop"}
+S> {"stream":"heap","type":"stopped"}
+S> {"type":"disconnected","data":"server"}
+   # Changing state (lastStatus object)
+S> {"type":"status","message":"{\"brand\":\"aternos\",\"status\":5,\"change\":1640978973,\"slots\":8,\"problems\":0,\"players\":0,\"playerlist\":[],\"message\":{\"text\":\"\",\"class\":\"blue\"},\"dynip\":null,\"bedrock\":false,\"host\":\"croaker.aternos.host\",\"port\":61370,\"headstarts\":null,\"ram\":0,\"lang\":\"saving\",\"label\":\"\\u0421\\u043e\\u0445\\u0440\\u0430\\u043d\\u0435\\u043d\\u0438\\u0435 ...\",\"class\":\"loading\",\"countdown\":null,\"queue\":null,\"id\":\"cDRCfaQjQDaABPKL\",\"name\":\"inc09\",\"software\":\"Forge\",\"softwareId\":\"p71sAEKNbhea4UEm\",\"type\":\"forge\",\"version\":\"1.12.2 (14.23.5.2860)\",\"deprecated\":false,\"ip\":\"inc09.aternos.me\",\"displayAddress\":\"inc09.aternos.me:61370\",\"motd\":\"IndustrialCraft 2\",\"icon\":\"fa-spinner-third fa-spin\",\"dns\":{\"type\":\"DEFAULT\",\"domains\":[\"inc09.aternos.me\"],\"host\":null,\"port\":null}}"}
+S> {"type":"status","message":"{\"brand\":\"aternos\",\"status\":0,\"change\":1640978991,\"slots\":8,\"problems\":0,\"players\":0,\"playerlist\":[],\"message\":{\"text\":\"\",\"class\":\"blue\"},\"dynip\":null,\"bedrock\":false,\"host\":\"\",\"port\":61370,\"headstarts\":null,\"ram\":0,\"lang\":\"offline\",\"label\":\"\\u041e\\u0444\\u0444\\u043b\\u0430\\u0439\\u043d\",\"class\":\"offline\",\"countdown\":null,\"queue\":null,\"id\":\"cDRCfaQjQDaABPKL\",\"name\":\"inc09\",\"software\":\"Forge\",\"softwareId\":\"p71sAEKNbhea4UEm\",\"type\":\"forge\",\"version\":\"1.12.2 (14.23.5.2860)\",\"deprecated\":false,\"ip\":\"inc09.aternos.me\",\"displayAddress\":\"inc09.aternos.me:61370\",\"motd\":\"IndustrialCraft 2\",\"icon\":\"fa-stop-circle\",\"dns\":{\"type\":\"DEFAULT\",\"domains\":[\"inc09.aternos.me\"],\"host\":null,\"port\":null}}"}
+   # Backup (why is this info here?)
+S> {"type":"backup_progress","message":"{\"id\":\"\",\"progress\":0,\"action\":\"reset\",\"auto\":false,\"done\":false}"}
+   # ???
+C> {"type":"❤"}
+
+*** Queue example
+S> {"type":"queue_reduced","message":"{\"queue\":0,\"total\":49,\"maxtime\":3}"}
+S> {"type":"queue_reduced","message":"{\"queue\":0,\"total\":49,\"maxtime\":2}"}
+
+   # From server.js:
+   #  var percentage = lastStatus.queue.position / queue.total * 100;
+      if (queue.maxtime) {
+         let minutes = Math.round((queue.maxtime - ((Date.now() / 1000) - lastStatus.queue.jointime)) / 60);
+         if (minutes < 1 || lastStatus.queue.pending === "ready") {
+             minutes = 1;
+         }
+         if (minutes > lastStatus.queue.minutes) {
+             minutes = lastStatus.queue.minutes;
+         }
+         if (lastStatus.queue.minutes - minutes <= 3) {
+             lastStatus.queue.minutes = minutes;
+         }
+         lastStatus.queue.time = "ca. " + lastStatus.queue.minutes + " min";
+      }
+
+*** type=tick
+S> {"stream":"tick","type":"tick","data":{"averageTickTime":8.526042}}
+S> {"stream":"tick","type":"tick","data":{"averageTickTime":1.4948028}}
+
+   # From legilimens.js:
+   # let tps = Math.round(Math.min(1000 / data.averageTickTime, 20) * 10) / 10;
+
+*** players
+S> {"type":"status","message":"{\"brand\":\"aternos\",\"status\":1,\"change\":1642165691,\"slots\":20,\"problems\":0,\"players\":1,\"playerlist\":[\"s1e2m3e4n\"],\"message\":{\"text\":\"\",\"class\":\"blue\"},\"dynip\":\"sawfish.aternos.host:46436\",\"bedrock\":false,\"host\":\"sawfish.aternos.host\",\"port\":46436,\"headstarts\":null,\"ram\":1700,\"lang\":\"online\",\"label\":\"Online\",\"class\":\"online\",\"countdown\":null,\"queue\":null,\"id\":\"NFbPTf7qPsvKkH75\",\"name\":\"dcat09t\",\"software\":\"Vanilla\",\"softwareId\":\"awFonCo1EWJo3Ch8\",\"type\":\"vanilla\",\"version\":\"1.12.2\",\"deprecated\":false,\"ip\":\"dcat09t.aternos.me\",\"displayAddress\":\"dcat09t.aternos.me:46436\",\"motd\":\"     dcat09t!\",\"onlineMode\":false,\"icon\":\"fa-play-circle\",\"dns\":{\"type\":\"SRV\",\"domains\":[\"dcat09t.aternos.me\"],\"host\":\"sawfish.aternos.host\",\"port\":46436,\"ip\":\"185.107.193.120\"},\"maxram\":1700}"}
+
+   # Look at the "players" and "playerlist" fields
